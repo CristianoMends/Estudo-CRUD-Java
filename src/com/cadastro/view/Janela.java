@@ -8,7 +8,7 @@ public class Janela extends JFrame{
 		super("CRUD");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		getContentPane().add(new Tela());
+		getContentPane().add(new CadastroView());
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);

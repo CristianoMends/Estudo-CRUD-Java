@@ -1,10 +1,12 @@
 package com.cadastro.view;
 
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,7 +14,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class Tela extends JPanel implements ActionListener{
+import com.cadastro.controller.CadastroController;
+
+
+public class CadastroView extends JPanel implements ActionListener{
 	int largura = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	int altura = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	
@@ -20,8 +25,9 @@ public class Tela extends JPanel implements ActionListener{
 	JTextArea txtCampo;
 	JButton btnCadastrar;
 	
-	public Tela() {
-		setPreferredSize(new Dimension(largura,altura));
+	public CadastroView() {
+		setSize(largura,altura);
+		setPreferredSize(new Dimension(500,500));
 		setLayout(null);
 		
 		JLabel nome = new JLabel("Nome");
@@ -55,7 +61,7 @@ public class Tela extends JPanel implements ActionListener{
 		
 		txtCampo = new JTextArea();
 		txtCampo.setBounds(400,200,400,125);
-		txtCampo.setEditable(false);
+		txtCampo.setEnabled(false);
 		txtCampo.setBackground(Color.black);
 		add(txtCampo);
 		
@@ -65,9 +71,14 @@ public class Tela extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnCadastrar) {
-			String texto = String.format("Nome: %s\nNascimento: %s\nTelefone: %s",
-					getTxtNome().getText(),getTxtDataNasc().getText(),getTxtTel().getText());
-			txtCampo.setText(texto);
+			CadastroController controller = new CadastroController();
+			try {
+				controller.cadastrarPessoa(this);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
 		}
 	}
 	
