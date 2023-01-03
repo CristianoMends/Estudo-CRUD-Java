@@ -1,9 +1,13 @@
 package com.cadastro.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pessoa {
 	private String nome;
 	private String dataNasc;
 	private String telefone;
+	private List<Pessoa> pessoas = new ArrayList<>();
 	
 	public Pessoa() {
 		
@@ -40,6 +44,15 @@ public class Pessoa {
 	public String toString() {
 		return "Pessoa [nome=" + nome + ", dataNasc=" + dataNasc + ", telefone=" + telefone + "]";
 	}
+
+	public List<Pessoa> getPessoas() {
+		return pessoas;
+	}
+
+	public void addPessoa(Pessoa p) {
+		pessoas.add(p);
+	}
+
 	
 	
 

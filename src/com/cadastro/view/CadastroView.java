@@ -10,11 +10,13 @@ import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.cadastro.controller.CadastroController;
+import com.cadastro.dao.CadastroDao;
 
 
 public class CadastroView extends JPanel implements ActionListener{
@@ -23,12 +25,15 @@ public class CadastroView extends JPanel implements ActionListener{
 	
 	JTextField txtNome,txtTel,txtDataNasc;
 	JTextArea txtCampo;
-	JButton btnCadastrar;
+	JButton btnCadastrar,btnListar,btnDeletar;
+	private int cod;
+	
 	
 	public CadastroView() {
 		setSize(largura,altura);
 		setPreferredSize(new Dimension(500,500));
 		setLayout(null);
+		
 		
 		JLabel nome = new JLabel("Nome");
 		nome.setBounds(50,200,50,25);
@@ -59,9 +64,20 @@ public class CadastroView extends JPanel implements ActionListener{
 		add(btnCadastrar);
 		btnCadastrar.addActionListener(this);
 		
+		btnListar = new JButton("Listar");
+		btnListar.setBounds(200,400,100,25);
+		add(btnListar);
+		btnListar.addActionListener(this);
+		
+		btnDeletar = new JButton("Deletar");
+		btnDeletar.setBounds(200,450,100,25);
+		add(btnDeletar);
+		btnDeletar.addActionListener(this);
+		
 		txtCampo = new JTextArea();
-		txtCampo.setBounds(400,200,400,125);
+		txtCampo.setBounds(400,200,500,125);
 		txtCampo.setEnabled(false);
+		txtCampo.setLineWrap(true);
 		txtCampo.setBackground(Color.black);
 		add(txtCampo);
 		
@@ -69,16 +85,40 @@ public class CadastroView extends JPanel implements ActionListener{
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) {	
+		
 		if(e.getSource()==btnCadastrar) {
 			CadastroController controller = new CadastroController();
 			try {
 				controller.cadastrarPessoa(this);
+				JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+			} catch (SQLException e1) {
+				JOptionPane.showMessageDialog(null, "Erro ao cadastar!");
+				e1.printStackTrace();
+			}
+
+		}else if(e.getSource()==btnListar) {
+			CadastroController controller = new CadastroController();
+			try {
+				setTxtCampo(controller.listarPessoas());
+			
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
+			
+			
+		}else if(e.getSource()==btnDeletar) {
+			CadastroController controller = new CadastroController();
+			try {
+				setCod( Integer.parseInt(JOptionPane.showInputDialog("Digite o código a ser deletado!")));
+				controller.deletarPessoa(this);
+				JOptionPane.showMessageDialog(null, "Deletado com sucesso!");
+			} catch (SQLException e1) {
+				JOptionPane.showMessageDialog(null, "Erro ao deletar!");
+				e1.printStackTrace();
+			}
+			
 		}
 	}
 	
@@ -109,7 +149,15 @@ public class CadastroView extends JPanel implements ActionListener{
 	public JTextArea getTxtCampo() {
 		return txtCampo;
 	}
-	public void setTxtCampo(JTextArea txtCampo) {
-		this.txtCampo = txtCampo;
+	public void setTxtCampo(String txt) {
+		this.txtCampo.setText(txt);
 	}
+	public int getCod() {
+		return cod;
+	}
+
+	public void setCod(int cod) {
+		this.cod = cod;
+	}
+
 }

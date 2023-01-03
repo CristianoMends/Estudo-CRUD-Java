@@ -20,6 +20,17 @@ public class CadastroController {
 		cadastroDao.cadastrarPessoa(pessoa.getNome(), pessoa.getDataNasc(), pessoa.getTelefone());
 		
 	}
+	public void deletarPessoa(CadastroView cadastroView) throws SQLException {
+		CadastroDao cadastroDao = new CadastroDao();
+		cadastroDao.deletarPessoa(cadastroView.getCod());
+		
+	} 
+	public String listarPessoas() throws SQLException {
+		CadastroDao cadastroDao = new CadastroDao();
+		return cadastroDao.listarPessoas();
+		
+		
+	}
 	
 	
 
