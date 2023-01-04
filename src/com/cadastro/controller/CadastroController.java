@@ -1,6 +1,7 @@
 package com.cadastro.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.cadastro.dao.CadastroDao;
 import com.cadastro.model.Pessoa;
@@ -25,12 +26,10 @@ public class CadastroController {
 		cadastroDao.deletarPessoa(cadastroView.getCod());
 		
 	} 
-	public String listarPessoas() throws SQLException {
-		CadastroDao cadastroDao = new CadastroDao();
-		return cadastroDao.listarPessoas();
+	
+	
 		
-		
-	}
+	
 	
 	
 

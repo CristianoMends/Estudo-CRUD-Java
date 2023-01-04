@@ -5,11 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.cadastro.model.Pessoa;
 
 
 public class CadastroDao {
 	public Connection conexao;
-	String lista = "";
+	 	
+	public ArrayList<Pessoa>lista = new ArrayList<>();
    
 
 	
@@ -27,25 +32,23 @@ public class CadastroDao {
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.execute();
 	}
-	public String listarPessoas() throws SQLException {
+	public ArrayList<Pessoa> listarPessoas() throws SQLException {
 		conexao = new Conexao().getConnection();
 		Statement st = conexao.createStatement();
 	      String sql = "SELECT * FROM pessoa";
 	      ResultSet rs = st.executeQuery(sql);	      
 	      
-	      while(rs.next()){	
-	    	  StringBuilder sb = new StringBuilder();
-	          int cod = rs.getInt("cod");
-	          String nome = rs.getString("nome");
-	          String dataNasc = rs.getString("dataNasc");
-	          String telefone = rs.getString("telefone");
-	          sb.append("Codigo: "+cod);
-	          sb.append("| Nome: "+nome);
-	          sb.append("| Nascimento: "+dataNasc);
-	          sb.append("| Telefone: "+telefone);
-	          sb.append("\n");
-	          lista +=String.format("COD: %3s |NOME: %20s |Nascimento: %10s |Telefone: %12s\n",cod,nome,dataNasc,telefone);
+	      while(rs.next()){
+	  		 Pessoa pessoa = new Pessoa();	  		 
+
+	          pessoa.setCod(rs.getInt("cod"));
+	          pessoa.setNome(rs.getString("nome"));
+	          pessoa.setDataNasc(rs.getString("dataNasc"));
+	          pessoa.setTelefone(rs.getString("telefone"));
+	          lista.add(pessoa);
+	         
 	        }
+	      
           return lista;
 	}
 	

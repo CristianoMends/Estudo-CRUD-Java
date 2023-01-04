@@ -2,6 +2,7 @@ package com.cadastro.view;
 
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -16,22 +17,25 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.cadastro.controller.CadastroController;
-import com.cadastro.dao.CadastroDao;
 
 
 public class CadastroView extends JPanel implements ActionListener{
 	int largura = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	int altura = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 	
+	
 	JTextField txtNome,txtTel,txtDataNasc;
 	JTextArea txtCampo;
-	JButton btnCadastrar,btnListar,btnDeletar;
+	JButton btnCadastrar,btnDeletar;
+	PainelLista painelLista;
+
 	private int cod;
 	
 	
 	public CadastroView() {
 		setSize(largura,altura);
-		setPreferredSize(new Dimension(500,500));
+		Container c = new Container();
+		setPreferredSize(new Dimension(600,500));
 		setLayout(null);
 		
 		
@@ -59,15 +63,16 @@ public class CadastroView extends JPanel implements ActionListener{
 		txtTel.setBounds(150,300,200,25);
 		add(txtTel);
 		
+		painelLista = new PainelLista();
+		painelLista.setBounds(400,200,700,400);
+		add(painelLista);
+				
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.setBounds(200, 350, 100, 25);
 		add(btnCadastrar);
 		btnCadastrar.addActionListener(this);
 		
-		btnListar = new JButton("Listar");
-		btnListar.setBounds(200,400,100,25);
-		add(btnListar);
-		btnListar.addActionListener(this);
+		
 		
 		btnDeletar = new JButton("Deletar");
 		btnDeletar.setBounds(200,450,100,25);
@@ -79,7 +84,7 @@ public class CadastroView extends JPanel implements ActionListener{
 		txtCampo.setEnabled(false);
 		txtCampo.setLineWrap(true);
 		txtCampo.setBackground(Color.black);
-		add(txtCampo);
+		
 		
 		
 	}
@@ -97,17 +102,6 @@ public class CadastroView extends JPanel implements ActionListener{
 				e1.printStackTrace();
 			}
 
-		}else if(e.getSource()==btnListar) {
-			CadastroController controller = new CadastroController();
-			try {
-				setTxtCampo(controller.listarPessoas());
-			
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			
 		}else if(e.getSource()==btnDeletar) {
 			CadastroController controller = new CadastroController();
 			try {

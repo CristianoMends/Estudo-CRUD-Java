@@ -4,21 +4,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pessoa {
+	private int cod;
 	private String nome;
 	private String dataNasc;
 	private String telefone;
 	private List<Pessoa> pessoas = new ArrayList<>();
 	
 	public Pessoa() {
-		
-	}	
+		}
 	
-	public void cadastrarPessoa(String nome, String dataNasc, String telefone) {
+	public Pessoa(int cod,String nome, String dataNasc, String telefone)  {
+		this.cod = cod;
 		this.nome = nome;
 		this.dataNasc = dataNasc;
 		this.telefone = telefone;
 	}
-
+	public void cadastrarPessoa(Pessoa p) {
+		pessoas.add(p);
+	}
+	public void deletarPessoa(Pessoa p) {
+		pessoas.remove(p.getCod());
+	}
+	public List<Pessoa> listarPessoas() {
+		
+		return pessoas;
+		
+	}
+	
 
 	public String getNome() {
 		return nome;
@@ -38,11 +50,19 @@ public class Pessoa {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
+	public int getCod() {
+		return cod;
+	}
+	public void setCod(int cod ) {
+		this.cod = cod;
+	}
 
 
 	@Override
 	public String toString() {
-		return "Pessoa [nome=" + nome + ", dataNasc=" + dataNasc + ", telefone=" + telefone + "]";
+		
+		return String.format("Cod: %3s Nome: %20s Nascimento: %10s Telefone: %12s \n" ,
+				cod,nome,dataNasc,telefone);
 	}
 
 	public List<Pessoa> getPessoas() {
