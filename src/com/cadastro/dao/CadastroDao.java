@@ -6,18 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.cadastro.model.Pessoa;
 
 
 public class CadastroDao {
 	public Connection conexao;
-	 	
 	public ArrayList<Pessoa>lista = new ArrayList<>();
-   
-
-	
 	
 	public void cadastrarPessoa(String nome,String dataNasc,String telefone) throws SQLException {
 		conexao = new Conexao().getConnection();

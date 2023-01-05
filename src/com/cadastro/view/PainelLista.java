@@ -1,6 +1,7 @@
 package com.cadastro.view;
 
-import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,45 +20,55 @@ import com.cadastro.dao.CadastroDao;
 import com.cadastro.model.Pessoa;
 
 public class PainelLista extends JPanel implements ActionListener{
+	private static final long serialVersionUID = 1L;
 	JButton btnListar,btnDeletar;
 	public JTable tabela;
 	ArrayList<Pessoa> lista = new ArrayList<>();
 	public DefaultTableModel modelo = new DefaultTableModel() {
+		private static final long serialVersionUID = 1L;
+
 		public boolean isCellEditable(int rowIndex, int mColIndex) {
 			return false;}};
-			String txt = String.format("  COD %50s %50s %50s ","Nome","Nascimento","Telefone");
 			
 	public PainelLista() {
 		setSize(700,400);
-		setLayout(null);
-		setBackground(Color.black);
-		
-		JLabel label = new JLabel(txt);
-		label.setBounds(0, 0, 700, 25);
-		add(label);
+		setLayout(new FlowLayout(FlowLayout.CENTER,110,5));
 		
 		modelo.addColumn("COD");
 		modelo.addColumn("NOME");
 		modelo.addColumn("NASCIMENTO");
 		modelo.addColumn("TELEFONE");
 		
+		JLabel cod = new JLabel("COD");
+		cod.setFont(new Font("",Font.BOLD,14));
+		add(cod,FlowLayout.LEFT,0);
+		
+		JLabel nome = new JLabel("Nome");
+		nome.setFont(new Font("",Font.BOLD,14));
+		add(nome,FlowLayout.LEFT,1);
+
+		JLabel nasc = new JLabel("Nascimento");
+		nasc.setFont(new Font("",Font.BOLD,14));
+		add(nasc,FlowLayout.LEFT,2);
+
+		JLabel telefone = new JLabel("Telefone");
+		telefone.setFont(new Font("",Font.BOLD,14));
+		add(telefone,FlowLayout.LEFT,3);
+		
 		tabela = new JTable(modelo);
-		tabela.setBounds(0,25,700,350);
-		add(tabela);		
+		tabela.setPreferredSize(new Dimension(700,335));
+		tabela.setFont(new Font("",Font.BOLD,12));
+		add(tabela,FlowLayout.CENTER,4);		
 		
 		btnListar = new JButton("Listar");
 		btnListar.setBounds(225,375,100,25);
-		add(btnListar);
+		add(btnListar,FlowLayout.LEFT,5);
 		btnListar.addActionListener(this);
 		
 		btnDeletar = new JButton("Deletar");
 		btnDeletar.setBounds(400,375,100,25);
-		add(btnDeletar);
+		add(btnDeletar,FlowLayout.LEFT,6);
 		btnDeletar.addActionListener(this);
-		
-		
-
-		
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
