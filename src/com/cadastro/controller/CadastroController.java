@@ -1,11 +1,11 @@
 package com.cadastro.controller;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import com.cadastro.dao.CadastroDao;
 import com.cadastro.model.Pessoa;
 import com.cadastro.view.CadastroView;
+import com.cadastro.view.PainelLista;
 
 public class CadastroController {
 	
@@ -21,9 +21,10 @@ public class CadastroController {
 		cadastroDao.cadastrarPessoa(pessoa.getNome(), pessoa.getDataNasc(), pessoa.getTelefone());
 		
 	}
-	public void deletarPessoa(CadastroView cadastroView) throws SQLException {
+	public void deletarPessoa(PainelLista painelLista) throws SQLException {
 		CadastroDao cadastroDao = new CadastroDao();
-		cadastroDao.deletarPessoa(cadastroView.getCod());
+		cadastroDao.deletarPessoa((int)painelLista.tabela.getValueAt(painelLista.tabela.getSelectedRow(), 0));
+		System.out.println(painelLista.tabela.getValueAt(painelLista.tabela.getSelectedRow(), 0));
 		
 	} 
 	

@@ -26,16 +26,14 @@ public class CadastroView extends JPanel implements ActionListener{
 	
 	JTextField txtNome,txtTel,txtDataNasc;
 	JTextArea txtCampo;
-	JButton btnCadastrar,btnDeletar;
+	JButton btnCadastrar;
 	PainelLista painelLista;
 
-	private int cod;
-	
 	
 	public CadastroView() {
 		setSize(largura,altura);
+		setPreferredSize(new Dimension(largura,altura));
 		Container c = new Container();
-		setPreferredSize(new Dimension(600,500));
 		setLayout(null);
 		
 		
@@ -70,23 +68,13 @@ public class CadastroView extends JPanel implements ActionListener{
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.setBounds(200, 350, 100, 25);
 		add(btnCadastrar);
-		btnCadastrar.addActionListener(this);
-		
-		
-		
-		btnDeletar = new JButton("Deletar");
-		btnDeletar.setBounds(200,450,100,25);
-		add(btnDeletar);
-		btnDeletar.addActionListener(this);
+		btnCadastrar.addActionListener(this);		
 		
 		txtCampo = new JTextArea();
 		txtCampo.setBounds(400,200,500,125);
 		txtCampo.setEnabled(false);
 		txtCampo.setLineWrap(true);
-		txtCampo.setBackground(Color.black);
-		
-		
-		
+		txtCampo.setBackground(Color.black);		
 	}
 	
 	@Override
@@ -102,17 +90,6 @@ public class CadastroView extends JPanel implements ActionListener{
 				e1.printStackTrace();
 			}
 
-		}else if(e.getSource()==btnDeletar) {
-			CadastroController controller = new CadastroController();
-			try {
-				setCod( Integer.parseInt(JOptionPane.showInputDialog("Digite o código a ser deletado!")));
-				controller.deletarPessoa(this);
-				JOptionPane.showMessageDialog(null, "Deletado com sucesso!");
-			} catch (SQLException e1) {
-				JOptionPane.showMessageDialog(null, "Erro ao deletar!");
-				e1.printStackTrace();
-			}
-			
 		}
 	}
 	
@@ -146,12 +123,6 @@ public class CadastroView extends JPanel implements ActionListener{
 	public void setTxtCampo(String txt) {
 		this.txtCampo.setText(txt);
 	}
-	public int getCod() {
-		return cod;
-	}
-
-	public void setCod(int cod) {
-		this.cod = cod;
-	}
+	
 
 }
