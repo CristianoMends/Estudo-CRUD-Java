@@ -19,7 +19,7 @@ import com.cadastro.controller.CadastroController;
 import com.cadastro.dao.CadastroDao;
 import com.cadastro.model.Pessoa;
 
-public class PainelLista extends JPanel implements ActionListener{
+public class ListaView extends JPanel implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	JButton btnListar,btnDeletar;
 	public JTable tabela;
@@ -30,7 +30,7 @@ public class PainelLista extends JPanel implements ActionListener{
 		public boolean isCellEditable(int rowIndex, int mColIndex) {
 			return false;}};
 			
-	public PainelLista() {
+	public ListaView() {
 		setSize(700,400);
 		setLayout(new FlowLayout(FlowLayout.CENTER,110,5));
 		
