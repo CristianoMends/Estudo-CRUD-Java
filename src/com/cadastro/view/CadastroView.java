@@ -1,103 +1,133 @@
 package com.cadastro.view;
 
-
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.SQLException;
+import java.text.ParseException;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 import com.cadastro.controller.CadastroController;
 
-
 public class CadastroView extends JPanel implements KeyListener,ActionListener{
-	private static final long serialVersionUID = 1L;
-	int largura = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-	int altura = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-	
-	
-	JTextField txtNome,txtTel,txtDataNasc;
-	JButton btnCadastrar;
-	ListaView listaView;	
-	ImageIcon fundo = new ImageIcon(getClass().getResource("recursos/Fundo.png"));
-	char[] letras = new char[15];
-	
-	
+	public JTextField txtNome,txtTel,txtDataNasc,cidade,uf;
+	 JButton btnCadastrar;
+	JRadioButton m,f;
 	public CadastroView() {
-		letras[0] = '(';
-		letras[3] = ')';
-		letras[5] = ' ';
-		letras[10] = '-';
-		
-		
-		setSize(fundo.getIconWidth(),fundo.getIconHeight());
-		setPreferredSize(new Dimension(fundo.getIconWidth(),fundo.getIconHeight()));
-		setLayout(null);
+		setSize(1000,400);
+		setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
 		
 		JPanel cadastroPanel = new JPanel();
-		cadastroPanel.setBounds(50,200,300,400);
-		cadastroPanel.setLayout(new FlowLayout(FlowLayout.LEADING,30,10));
+		cadastroPanel.setPreferredSize(new Dimension(500,400));
+		cadastroPanel.setLayout(new FlowLayout(FlowLayout.LEFT,30,5));
 		add(cadastroPanel);
-
+		
+		JPanel panelEnd = new JPanel();
+		panelEnd.setPreferredSize(new Dimension(500,400));
+		panelEnd.setLayout(new FlowLayout(FlowLayout.LEFT,30,10));
+		add(panelEnd);
+		
+   try {
+			
+		
+		
 		JLabel nome = new JLabel("Nome");
+		nome.setPreferredSize(new Dimension(500,25));
 		nome.setFont(new Font("",Font.BOLD,14));
 		cadastroPanel.add(nome,FlowLayout.LEFT,0);
 		
 		txtNome = new JTextField(20);
+		txtNome.setPreferredSize(new Dimension(500,25));
 		txtNome.setFont(new Font("",Font.BOLD,15));
 		cadastroPanel.add(txtNome,FlowLayout.LEFT,1);
 		
 		JLabel nasc = new JLabel("Nascimento");
+		nasc.setPreferredSize(new Dimension(500,25));
 		nasc.setFont(new Font("",Font.BOLD,14));
 		cadastroPanel.add(nasc,FlowLayout.LEFT,2);
 		
-		txtDataNasc = new JTextField(20);
+		txtDataNasc = new JFormattedTextField(new MaskFormatter("##/##/####"));
+		txtDataNasc.setColumns(20);
+		txtDataNasc.setPreferredSize(new Dimension(500,25));
 		txtDataNasc.setFont(new Font("",Font.BOLD,15));
 		cadastroPanel.add(txtDataNasc,FlowLayout.LEFT,3);
 		txtDataNasc.addKeyListener(this);
 		
 		JLabel tel = new JLabel("Telefone");
 		tel.setFont(new Font("",Font.BOLD,14));
+		tel.setPreferredSize(new Dimension(500,25));
 		cadastroPanel.add(tel,FlowLayout.LEFT,4);
 		
-		txtTel = new JTextField(20);
+		txtTel = new JFormattedTextField(new MaskFormatter("(##)# ####-####"));
+		txtTel.setColumns(10);
+		txtTel.setPreferredSize(new Dimension(500,25));
 		txtTel.setFont(new Font("",Font.BOLD,15));
 		cadastroPanel.add(txtTel,FlowLayout.LEFT,5);
 		txtTel.addKeyListener(this);
 		
-		listaView = new ListaView();
-		listaView.setBounds(400,200,700,400);
-		add(listaView);
+		JLabel sexo = new JLabel("Sexo");
+		sexo.setFont(new Font("",Font.BOLD,14));
+		sexo.setPreferredSize(new Dimension(500,25));
+		cadastroPanel.add(sexo,FlowLayout.LEFT,6);
 		
+		m = new JRadioButton("M");
+		f = new JRadioButton("F");
+		m.setPreferredSize(new Dimension(50, 15));
+		f.setPreferredSize(new Dimension(350,25));
+		cadastroPanel.add(m,FlowLayout.LEFT,7);
+		cadastroPanel.add(f,FlowLayout.LEFT,8);
+		
+		
+		JLabel cidade = new JLabel("Cidade");
+		cidade.setPreferredSize(new Dimension(500,25));
+		cidade.setFont(new Font("",Font.BOLD,14));
+		panelEnd.add(cidade,FlowLayout.LEFT,0);
+		
+		this.cidade = new JTextField(20);
+		this.cidade.setPreferredSize(new Dimension(500,25));
+		this.cidade.setFont(new Font("",Font.BOLD,15));
+		panelEnd.add(this.cidade,FlowLayout.LEFT,1);
+		
+		JLabel uf = new JLabel("UF");
+		uf.setPreferredSize(new Dimension(500, 25));
+		uf.setFont(new Font("",Font.BOLD,14));
+		panelEnd.add(uf,FlowLayout.LEFT,2);
+		
+		this.uf = new JTextField(20);
+		this.uf.setPreferredSize(new Dimension(500,25));
+		this.uf.setFont(new Font("",Font.BOLD,14));
+		panelEnd.add(this.uf,FlowLayout.LEFT,3);
+				
 		btnCadastrar = new JButton("Cadastrar");
-		cadastroPanel.add(btnCadastrar,FlowLayout.CENTER,6);
+		btnCadastrar.setLocation(500,350);
+		cadastroPanel.add(btnCadastrar);
 		btnCadastrar.addActionListener(this);
 		
-		JLabel fundo = new JLabel(this.fundo);
-		fundo.setBounds(0,0,1300,800);
-		add(fundo);
-	}
-	
+	} 
+  catch (ParseException e) {
+	  JOptionPane.showMessageDialog(null, "Erro: "+e);
+	  e.printStackTrace();
+		}
+   
+		}
 	@Override
-	public void actionPerformed(ActionEvent e) {		
-		
-			
+	public void actionPerformed(ActionEvent e) {			
 		
 		if(e.getSource()==btnCadastrar) {
 			CadastroController controller = new CadastroController();
 			try {
-				txtDataNasc.setText(txtDataNasc.getText().formatted("dd/MM/yyyy"));
 				controller.cadastrarPessoa(this);
 				JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
 			} catch (SQLException e1) {
@@ -107,84 +137,29 @@ public class CadastroView extends JPanel implements KeyListener,ActionListener{
 
 		}
 	}
-	
-	public JTextField getTxtNome() {
-		return txtNome;
-	}
-
-	public void setTxtNome(JTextField txtNome) {
-		this.txtNome = txtNome;
-	}
-
-	public JTextField getTxtTel() {
-		return txtTel;
-	}
-
-	public void setTxtTel(JTextField txtTel) {
-		this.txtTel = txtTel;
-	}
-
-	public JTextField getTxtDataNasc() {
-		return txtDataNasc;
-	}
-
-	public void setTxtDataNasc(JTextField txtDataNasc) {
-		this.txtDataNasc = txtDataNasc;
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-	}
-
 	@Override
 	public void keyPressed(KeyEvent e) {
 		//Condicoes para Data de nascimento
-		String key = String.valueOf(e.getKeyChar());
-		if(!key.matches("[0-9]*")) {
-			
-		}
+		String key = String.valueOf(e.getKeyChar());		
+		if(e.getComponent()==txtDataNasc && e.getKeyCode()!=8) {
+			if( !key.matches("[0-9]*")) {JOptionPane.showMessageDialog(txtDataNasc, "Digite apenas numeros! ");}
+											}	
 		
-		if(e.getComponent()==txtDataNasc) {
-		if(!txtDataNasc.getText().substring(0,txtDataNasc.getText().length()).matches("[0-9]*")) {			
-			
-		}
-		
-		if(txtDataNasc.getText().length()==2 ||txtDataNasc.getText().length()==5 ) {
-			txtDataNasc.setText(txtDataNasc.getText()+"/");
-		
-		}
-		
-		if(txtDataNasc.getText().length()>=10) {
-			txtDataNasc.setText(txtDataNasc.getText().substring(0,9));
-		}}
-	
 		//Condicoes para telefone
-		if(e.getComponent()==txtTel) {
-			if(!txtTel.getText().substring(0,txtTel.getText().length()).matches("[0-9]*")) {
-			}
-
-		if(txtTel.getText().length()==0) {
-			txtTel.setText(txtTel.getText()+letras[0]);
-		}else if(txtTel.getText().length()==3) {
-			txtTel.setText(txtTel.getText()+letras[3]);
+		if(e.getComponent()==txtTel && e.getKeyCode()!=8) {
+			if(e.getComponent()==txtTel) {
+				if( !key.matches("[0-9]*")) {JOptionPane.showMessageDialog(txtDataNasc, "Digite apenas numeros!!");}
+			}}
 		
-		}else if(txtTel.getText().length()==5) {
-			txtTel.setText(txtTel.getText()+letras[5]);
-		
-		}else if(txtTel.getText().length()==10) {
-			txtTel.setText(txtTel.getText()+letras[10]);}
-		}else {}
-		if(txtTel.getText().length()>=14) {
-			txtTel.setText(txtTel.getText().substring(0,14));
-		}
 	}
-
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 	@Override
 	public void keyReleased(KeyEvent e) {
-
+		// TODO Auto-generated method stub
+		
 	}
-
-	
-	
-
 }

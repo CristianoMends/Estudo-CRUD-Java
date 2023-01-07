@@ -31,7 +31,7 @@ public class ListaView extends JPanel implements ActionListener{
 			return false;}};
 			
 	public ListaView() {
-		setSize(700,400);
+		setSize(1000,400);
 		setLayout(new FlowLayout(FlowLayout.CENTER,110,5));
 		
 		modelo.addColumn("COD");
@@ -56,7 +56,7 @@ public class ListaView extends JPanel implements ActionListener{
 		add(telefone,FlowLayout.LEFT,3);
 		
 		tabela = new JTable(modelo);
-		tabela.setPreferredSize(new Dimension(700,335));
+		tabela.setPreferredSize(new Dimension(getWidth(),getHeight()-100));
 		tabela.setFont(new Font("",Font.BOLD,12));
 		add(tabela,FlowLayout.CENTER,4);		
 		
@@ -97,13 +97,17 @@ public class ListaView extends JPanel implements ActionListener{
 			}
 			
 		}else if(e.getSource()==btnDeletar) {
-			CadastroController cadastroController = new CadastroController();
 			try {
+			CadastroController cadastroController = new CadastroController();
+			
 				cadastroController.deletarPessoa(this);
 				JOptionPane.showMessageDialog(null, "Deletado com sucesso!");
-			} catch (SQLException e1) {
+				
+			} catch (SQLException e1 ) {
 				JOptionPane.showMessageDialog(null, "Erro ao deletar");
 				e1.printStackTrace();
+			} catch(ArrayIndexOutOfBoundsException a) {
+				JOptionPane.showMessageDialog(null, "Selecione uma linha para deletar!");
 			}
 			
 		}
