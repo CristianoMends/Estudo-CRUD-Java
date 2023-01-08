@@ -1,4 +1,4 @@
-package com.cadastro.view;
+package com.supermercado.view;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -19,10 +19,16 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
-import com.cadastro.controller.CadastroController;
+import com.supermercado.controller.CadastroController;
+import com.supermercado.model.Pessoa;
 
 public class CadastroView extends JPanel implements KeyListener,ActionListener{
-	public JTextField txtNome,txtTel,txtDataNasc,cidade,uf;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public JTextField txtNome,txtTel,txtDataNasc,txtEmail,txtCpf,txtCidade,txtUf,txtRua,txtNumero;
+	public String sexo;
 	 JButton btnCadastrar;
 	JRadioButton m,f;
 	public CadastroView() {
@@ -53,62 +59,105 @@ public class CadastroView extends JPanel implements KeyListener,ActionListener{
 		txtNome.setFont(new Font("",Font.BOLD,15));
 		cadastroPanel.add(txtNome,FlowLayout.LEFT,1);
 		
+		JLabel cpf = new JLabel("CPF");
+		cpf.setPreferredSize(new Dimension(500,25));
+		cpf.setFont(new Font("",Font.BOLD,14));
+		cadastroPanel.add(cpf,FlowLayout.LEFT,2);
+		
+		txtCpf = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
+		txtCpf.setColumns(14);
+		txtCpf.setPreferredSize(new Dimension(500,25));
+		txtCpf.setFont(new Font("",Font.BOLD,15));
+		cadastroPanel.add(txtCpf,FlowLayout.LEFT,3);
+		txtCpf.addKeyListener(this);
+		
 		JLabel nasc = new JLabel("Nascimento");
 		nasc.setPreferredSize(new Dimension(500,25));
 		nasc.setFont(new Font("",Font.BOLD,14));
-		cadastroPanel.add(nasc,FlowLayout.LEFT,2);
+		cadastroPanel.add(nasc,FlowLayout.LEFT,4);
 		
 		txtDataNasc = new JFormattedTextField(new MaskFormatter("##/##/####"));
-		txtDataNasc.setColumns(20);
+		txtDataNasc.setColumns(10);
 		txtDataNasc.setPreferredSize(new Dimension(500,25));
 		txtDataNasc.setFont(new Font("",Font.BOLD,15));
-		cadastroPanel.add(txtDataNasc,FlowLayout.LEFT,3);
+		cadastroPanel.add(txtDataNasc,FlowLayout.LEFT,5);
 		txtDataNasc.addKeyListener(this);
 		
 		JLabel tel = new JLabel("Telefone");
 		tel.setFont(new Font("",Font.BOLD,14));
 		tel.setPreferredSize(new Dimension(500,25));
-		cadastroPanel.add(tel,FlowLayout.LEFT,4);
+		cadastroPanel.add(tel,FlowLayout.LEFT,6);
 		
 		txtTel = new JFormattedTextField(new MaskFormatter("(##)# ####-####"));
 		txtTel.setColumns(10);
 		txtTel.setPreferredSize(new Dimension(500,25));
 		txtTel.setFont(new Font("",Font.BOLD,15));
-		cadastroPanel.add(txtTel,FlowLayout.LEFT,5);
+		cadastroPanel.add(txtTel,FlowLayout.LEFT,7);
+		txtTel.addKeyListener(this);
+		
+		JLabel email = new JLabel("E-Mail");
+		email.setFont(new Font("",Font.BOLD,14));
+		email.setPreferredSize(new Dimension(500,25));
+		cadastroPanel.add(email,FlowLayout.LEFT,6);
+		
+		txtEmail = new JTextField();
+		txtEmail.setColumns(10);
+		txtEmail.setPreferredSize(new Dimension(500,25));
+		txtEmail.setFont(new Font("",Font.BOLD,15));
+		cadastroPanel.add(txtEmail,FlowLayout.LEFT,7);
 		txtTel.addKeyListener(this);
 		
 		JLabel sexo = new JLabel("Sexo");
 		sexo.setFont(new Font("",Font.BOLD,14));
 		sexo.setPreferredSize(new Dimension(500,25));
-		cadastroPanel.add(sexo,FlowLayout.LEFT,6);
+		cadastroPanel.add(sexo,FlowLayout.LEFT,8);
 		
 		m = new JRadioButton("M");
 		f = new JRadioButton("F");
 		m.setPreferredSize(new Dimension(50, 15));
 		f.setPreferredSize(new Dimension(350,25));
-		cadastroPanel.add(m,FlowLayout.LEFT,7);
-		cadastroPanel.add(f,FlowLayout.LEFT,8);
+		cadastroPanel.add(m,FlowLayout.LEFT,9);
+		cadastroPanel.add(f,FlowLayout.LEFT,10);
 		
+		JLabel rua = new JLabel("Rua");
+		rua.setPreferredSize(new Dimension(500, 25));
+		rua.setFont(new Font("",Font.BOLD,14));
+		panelEnd.add(rua,FlowLayout.LEFT,0);
+		
+		txtRua = new JTextField(20);
+		txtRua.setPreferredSize(new Dimension(500,25));
+		txtRua.setFont(new Font("",Font.BOLD,14));
+		panelEnd.add(txtRua,FlowLayout.LEFT,1);
+		
+		JLabel n = new JLabel("Numero");
+		n.setPreferredSize(new Dimension(500, 25));
+		n.setFont(new Font("",Font.BOLD,14));
+		panelEnd.add(n,FlowLayout.LEFT,2);
+		
+		txtNumero = new JTextField(4);
+		txtNumero.setPreferredSize(new Dimension(500,25));
+		txtNumero.setFont(new Font("",Font.BOLD,14));
+		panelEnd.add(txtNumero,FlowLayout.LEFT,3);
 		
 		JLabel cidade = new JLabel("Cidade");
 		cidade.setPreferredSize(new Dimension(500,25));
 		cidade.setFont(new Font("",Font.BOLD,14));
-		panelEnd.add(cidade,FlowLayout.LEFT,0);
+		panelEnd.add(cidade,FlowLayout.LEFT,4);
 		
-		this.cidade = new JTextField(20);
-		this.cidade.setPreferredSize(new Dimension(500,25));
-		this.cidade.setFont(new Font("",Font.BOLD,15));
-		panelEnd.add(this.cidade,FlowLayout.LEFT,1);
+		this.txtCidade = new JTextField(20);
+		this.txtCidade.setPreferredSize(new Dimension(500,25));
+		this.txtCidade.setFont(new Font("",Font.BOLD,15));
+		panelEnd.add(this.txtCidade,FlowLayout.LEFT,5);
 		
 		JLabel uf = new JLabel("UF");
 		uf.setPreferredSize(new Dimension(500, 25));
 		uf.setFont(new Font("",Font.BOLD,14));
-		panelEnd.add(uf,FlowLayout.LEFT,2);
+		panelEnd.add(uf,FlowLayout.LEFT,6);
 		
-		this.uf = new JTextField(20);
-		this.uf.setPreferredSize(new Dimension(500,25));
-		this.uf.setFont(new Font("",Font.BOLD,14));
-		panelEnd.add(this.uf,FlowLayout.LEFT,3);
+		this.txtUf = new JTextField(20);
+		this.txtUf.setPreferredSize(new Dimension(500,25));
+		this.txtUf.setFont(new Font("",Font.BOLD,14));
+		panelEnd.add(this.txtUf,FlowLayout.LEFT,7);
 				
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.setLocation(500,350);
@@ -126,12 +175,17 @@ public class CadastroView extends JPanel implements KeyListener,ActionListener{
 	public void actionPerformed(ActionEvent e) {			
 		
 		if(e.getSource()==btnCadastrar) {
-			CadastroController controller = new CadastroController();
 			try {
+				if(f.isSelected()) {
+					sexo=f.getText();
+				}else if(m.isSelected()){
+					sexo=m.getText();}
+				
+				CadastroController controller = new CadastroController();
 				controller.cadastrarPessoa(this);
 				JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
 			} catch (SQLException e1) {
-				JOptionPane.showMessageDialog(null, "Erro ao cadastar!");
+				JOptionPane.showMessageDialog(null, "Erro: "+e1);
 				e1.printStackTrace();
 			}
 
@@ -156,6 +210,12 @@ public class CadastroView extends JPanel implements KeyListener,ActionListener{
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	public String getSexo() {
+		return sexo;
+	}
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {

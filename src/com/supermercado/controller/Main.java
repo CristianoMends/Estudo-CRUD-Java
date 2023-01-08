@@ -1,8 +1,8 @@
-package com.cadastro.controller;
+package com.supermercado.controller;
 
 import java.text.ParseException;
 
-import com.cadastro.view.Janela;
+import com.supermercado.view.Janela;
 
 public class Main{
 	
@@ -10,6 +10,4 @@ public class Main{
 	public static void main(String[] args) throws ParseException  {
 		new Janela();
 		
-		
-	}
-}
+}}
