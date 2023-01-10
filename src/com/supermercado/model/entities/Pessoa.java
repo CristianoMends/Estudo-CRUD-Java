@@ -1,4 +1,4 @@
-package com.supermercado.model;
+package com.supermercado.model.entities;
 
 import java.util.ArrayList;
 import java.util.List;

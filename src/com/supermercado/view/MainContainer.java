@@ -6,16 +6,12 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 
 
-public class MainContainer extends JPanel implements MouseListener{
+public class MainContainer extends JPanel{
 	private static final long serialVersionUID = 1L;
 	int largura = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
 	int altura = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
@@ -43,8 +39,7 @@ public class MainContainer extends JPanel implements MouseListener{
 		listaView.setVisible(false);
 		add(listaView);
 		
-		addMouseListener(this);
-		
+	
 		
 		head = new JLabel("Cadastro de clientes");
 		head.setFont(new Font("arial",Font.BOLD,25));
@@ -55,39 +50,7 @@ public class MainContainer extends JPanel implements MouseListener{
 			
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		if(e.getButton()==3) {
-			JPopupMenu jPopupMenu = new JPopupMenu();
-			jPopupMenu.add(new JMenuItem("Teste"));			
-			jPopupMenu.show(this, e.getX(), e.getY());
-		}
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 
 }

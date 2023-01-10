@@ -20,7 +20,6 @@ import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
 import com.supermercado.controller.CadastroController;
-import com.supermercado.model.Pessoa;
 
 public class CadastroView extends JPanel implements KeyListener,ActionListener{
 	/**

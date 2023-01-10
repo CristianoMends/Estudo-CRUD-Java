@@ -3,7 +3,7 @@ package com.supermercado.controller;
 import java.sql.SQLException;
 
 import com.supermercado.dao.CadastroDao;
-import com.supermercado.model.Pessoa;
+import com.supermercado.model.entities.Pessoa;
 import com.supermercado.view.CadastroView;
 import com.supermercado.view.ListaView;
 
