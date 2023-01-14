@@ -37,9 +37,7 @@ public class MainContainer extends JPanel{
 		listaView.setLocation(25, 100);
 		listaView.setPreferredSize(new Dimension(listaView.getWidth(),listaView.getHeight()));
 		listaView.setVisible(false);
-		add(listaView);
-		
-	
+		add(listaView);	
 		
 		head = new JLabel("Cadastro de clientes");
 		head.setFont(new Font("arial",Font.BOLD,25));

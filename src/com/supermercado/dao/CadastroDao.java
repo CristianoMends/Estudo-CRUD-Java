@@ -30,6 +30,14 @@ public class CadastroDao {
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.execute();
 	}
+	public void editarPessoa(String cpf, String nome, String dataNasc, String telefone, String email, String sexo, String rua,
+			String numero, String cidade, String uf) throws SQLException {
+		conexao = new Conexao().getConnection();
+		String sql =  "UPDATE"; 
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.execute();
+	}
+	
 
 	public ArrayList<Pessoa> listarPessoas() throws SQLException {
 		conexao = new Conexao().getConnection();

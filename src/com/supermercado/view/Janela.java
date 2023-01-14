@@ -1,9 +1,13 @@
 package com.supermercado.view;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -55,21 +59,20 @@ public class Janela extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+				
 		if(e.getSource()==itemsair) {
 			System.exit(0);
 		}
-		if(e.getSource()==itemPainelClientes) {
+		if(e.getSource()==itemPainelClientes || view.listaView.isVisible()) {
 				view.head.setText("Lista de Clientes");
 				view.cadastroView.setVisible(false);
 				view.listaView.setVisible(true);
 			
-		}if(e.getSource()==itemPainelCadastro) {
+		}if(e.getSource()==itemPainelCadastro || view.cadastroView.isVisible()) {
 			view.head.setText("Cadastro de Cliente");
 			view.listaView.setVisible(false);
 			view.cadastroView.setVisible(true);
 			
 		}
-		
 	}
 }

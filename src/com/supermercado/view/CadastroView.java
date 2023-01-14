@@ -29,7 +29,7 @@ public class CadastroView extends JPanel implements KeyListener,ActionListener{
 	public JTextField txtNome,txtTel,txtDataNasc,txtEmail,txtCpf,txtCidade,txtUf,txtRua,txtNumero;
 	public String sexo;
 	 JButton btnCadastrar;
-	JRadioButton m,f;
+	public JRadioButton m,f;
 	public CadastroView() {
 		setSize(1000,400);
 		setLayout(new FlowLayout(FlowLayout.LEFT,0,0));
@@ -159,7 +159,7 @@ public class CadastroView extends JPanel implements KeyListener,ActionListener{
 		panelEnd.add(this.txtUf,FlowLayout.LEFT,7);
 				
 		btnCadastrar = new JButton("Cadastrar");
-		btnCadastrar.setLocation(500,350);
+		btnCadastrar.setLocation(500,400);
 		cadastroPanel.add(btnCadastrar);
 		btnCadastrar.addActionListener(this);
 		
