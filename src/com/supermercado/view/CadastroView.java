@@ -171,24 +171,27 @@ public class CadastroView extends JPanel implements KeyListener,ActionListener{
    
 		}
 	@Override
-	public void actionPerformed(ActionEvent e) {			
-		
-		if(e.getSource()==btnCadastrar) {
-			try {
-				if(f.isSelected()) {
-					sexo=f.getText();
-				}else if(m.isSelected()){
-					sexo=m.getText();}
-				
+	public void actionPerformed(ActionEvent e) {	
+		try {
+				  if(f.isSelected()) {sexo=f.getText();
+		    }else if(m.isSelected()) {sexo=m.getText();
+		    }
+			if(e.getSource()==btnCadastrar && btnCadastrar.getText()!="Atualizar") {		    
 				CadastroController controller = new CadastroController();
 				controller.cadastrarPessoa(this);
 				JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-			} catch (SQLException e1) {
-				JOptionPane.showMessageDialog(null, "Erro: "+e1);
-				e1.printStackTrace();
 			}
+			if(e.getSource()==btnCadastrar && btnCadastrar.getText()=="Atualizar") {
+				CadastroController cadastroController = new CadastroController();
+				cadastroController.editarPessoa(this);
+				JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
 
-		}
+			}
+			} catch (SQLException e1) {
+			JOptionPane.showMessageDialog(null, "Erro, Cadastro não concluído! \n"+e1);
+			System.err.println("Cadastro não concluído!");
+			e1.printStackTrace();
+			}
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {

@@ -13,12 +13,12 @@ public class CadastroDao {
 	public Connection conexao;
 	public ArrayList<Pessoa> lista = new ArrayList<>();
 
-	public void cadastrarPessoa(String cpf, String nome, String dataNasc, String telefone, String email, String sexo, String rua,
-			String numero, String cidade, String uf) throws SQLException {
+	public void cadastrarPessoa(String cpf, String nome, String dataNasc, String telefone, String email, String sexo,
+			String rua, String numero, String cidade, String uf) throws SQLException {
 		conexao = new Conexao().getConnection();
 		String sql = "insert into cliente(cpf,nome,nascimento,email,sexo,rua,numero,cidade,uf,telefone)" + " values('"
-				+ cpf + "','" + nome + "','" + dataNasc + "','" + email + "','"+sexo+"','" + rua + "','" + numero + "','" + cidade
-				+ "','" + uf + "','" + telefone + "')";
+				+ cpf + "','" + nome + "','" + dataNasc + "','" + email + "','" + sexo + "','" + rua + "','" + numero
+				+ "','" + cidade + "','" + uf + "','" + telefone + "')";
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.execute();
 
@@ -30,14 +30,7 @@ public class CadastroDao {
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ps.execute();
 	}
-	public void editarPessoa(String cpf, String nome, String dataNasc, String telefone, String email, String sexo, String rua,
-			String numero, String cidade, String uf) throws SQLException {
-		conexao = new Conexao().getConnection();
-		String sql =  "UPDATE"; 
-		PreparedStatement ps = conexao.prepareStatement(sql);
-		ps.execute();
-	}
-	
+
 
 	public ArrayList<Pessoa> listarPessoas() throws SQLException {
 		conexao = new Conexao().getConnection();
@@ -63,6 +56,26 @@ public class CadastroDao {
 		}
 
 		return lista;
+	}
+	public void atualizarPessoa(String cpf, String nome, String dataNasc, String telefone, String email, String sexo,
+			String rua, String numero, String cidade, String uf,String key) throws SQLException {
+		conexao = new Conexao().getConnection();
+		String sql = "update cliente\r\n"
+				+ "set \r\n"
+				+ "cpf = '"+cpf+"',\r\n"
+				+ "nome = '"+nome+"',\r\n"
+				+ "nascimento = '"+dataNasc+"',\r\n"
+				+ "email = '"+telefone+"',\r\n"
+				+ "rua = '"+email+"',\r\n"
+				+ "numero = '"+sexo+"',\r\n"
+				+ "cidade = '"+rua+"',\r\n"
+				+ "uf = '"+numero+"',\r\n"
+				+ "sexo = '"+cidade+"',\r\n"
+				+ "telefone = '"+uf+"'\r\n"
+				+ "where cpf = '"+key+"'";
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		ps.execute();
+
 	}
 
 }
