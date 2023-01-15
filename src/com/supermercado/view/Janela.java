@@ -3,14 +3,12 @@ package com.supermercado.view;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
 public class Janela extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	
@@ -19,7 +17,6 @@ public class Janela extends JFrame implements ActionListener{
 	JMenuBar menuBar = new JMenuBar();
 	JMenu menuFile;
 	JMenuItem itemsair,itemPainelClientes,itemPainelCadastro;
-	 
 	
 	public Janela () {
 		super("Supermercado v1.0");
@@ -41,22 +38,17 @@ public class Janela extends JFrame implements ActionListener{
 		menuFile.add(itemsair);		
 		itemsair.addActionListener(this);
 		
-		menuBar.add(menuFile);		
+		menuBar.add(menuFile);
 		
-		
-		
-		
-		
-		getContentPane().add(view);
+		JScrollPane scroll = new JScrollPane(view);
+		scroll.setPreferredSize(new Dimension(500,500));
+		getContentPane().add(scroll);
 		pack();
 		setLocationRelativeTo(view);
 		setVisible(true);
 
-	
 	}
 	
-	
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 				

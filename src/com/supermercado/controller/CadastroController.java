@@ -1,6 +1,7 @@
 package com.supermercado.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.supermercado.dao.CadastroDao;
 import com.supermercado.model.entities.Pessoa;
@@ -58,11 +59,9 @@ public class CadastroController {
 		ListaView.getSelectedCpf());
 		
 	}
-	
-	
-		
-	
-	
-	
+	public ArrayList<Pessoa> pesquisarPessoa() throws SQLException {
+		CadastroDao dao = new CadastroDao();
+		return dao.listarPessoas();
+	}
 
 }

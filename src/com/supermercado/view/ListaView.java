@@ -1,5 +1,6 @@
 package com.supermercado.view;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -19,6 +20,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,7 +31,7 @@ import com.supermercado.model.entities.Pessoa;
 
 public class ListaView extends JPanel implements ActionListener, MouseListener {
 	private static final long serialVersionUID = 1L;
-	private JButton btnListar, btnDeletar, btnEditar;
+	private JButton btnListar, btnDeletar, btnEditar, btnPesquisar;
 	public static JTable tabela;
 	ArrayList<Pessoa> lista = new ArrayList<>();
 	public DefaultTableModel modelo = new DefaultTableModel() {
@@ -42,7 +44,7 @@ public class ListaView extends JPanel implements ActionListener, MouseListener {
 
 	public ListaView() {
 		setSize(1300, 400);
-		setLayout(new FlowLayout(FlowLayout.CENTER, 110, 5));
+		setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
 
 		modelo.addColumn("CPF");
 		modelo.addColumn("NOME");
@@ -53,27 +55,29 @@ public class ListaView extends JPanel implements ActionListener, MouseListener {
 		modelo.addColumn("RUA");
 		modelo.addColumn("NUMERO");
 		modelo.addColumn("UF");
-		modelo.addRow(
-				new Object[] { "CPF", "NOME", "NASCIMENTO", "TELEFONE", "E-MAIL", "SEXO", "RUA", "NUMERO", "UF" });
+		
 
 		tabela = new JTable(modelo);
-		tabela.setPreferredSize(new Dimension(getWidth(), getHeight() - 100));
 		tabela.setFont(new Font("", Font.PLAIN, 12));
-		add(tabela, FlowLayout.CENTER, 0);
+		
+		JScrollPane scroll = new JScrollPane(tabela);
+		scroll.setPreferredSize(new Dimension(getWidth(), getHeight()-50));
+		add(scroll);
+		
+		btnPesquisar = new JButton("Pesquisar");
+		add(btnPesquisar);
+		btnPesquisar.addActionListener(this);
 
 		btnListar = new JButton("Listar");
-		btnListar.setBounds(200, 375, 100, 25);
-		add(btnListar, FlowLayout.LEFT, 1);
+		add(btnListar);
 		btnListar.addActionListener(this);
 
 		btnEditar = new JButton("Editar");
-		btnEditar.setBounds(300, 375, 100, 25);
-		add(btnEditar, FlowLayout.LEFT, 2);
+		add(btnEditar);
 		btnEditar.addActionListener(this);
 
 		btnDeletar = new JButton("Deletar");
-		btnDeletar.setBounds(400, 375, 100, 25);
-		add(btnDeletar, FlowLayout.LEFT, 3);
+		add(btnDeletar);
 		btnDeletar.addActionListener(this);
 
 		addMouseListener(this);
@@ -84,7 +88,6 @@ public class ListaView extends JPanel implements ActionListener, MouseListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnListar) {
 			try {
-				modelo.setRowCount(1);
 				CadastroDao cadastroDao = new CadastroDao();
 				lista = cadastroDao.listarPessoas();
 				for (int i = 0; i < lista.size(); i++) {
@@ -116,8 +119,13 @@ public class ListaView extends JPanel implements ActionListener, MouseListener {
 				JOptionPane.showMessageDialog(null, "Selecione uma linha para deletar!");
 			}
 
-		} else if (e.getSource() == btnEditar) {
+		}else if(e.getSource()==btnPesquisar) {
+			String key = JOptionPane.showInputDialog(btnPesquisar,"Digite um nome para pesquisar");
+			
+		}else if (e.getSource() == btnEditar) {
 			try {
+						
+				
 				int a = JOptionPane.showConfirmDialog(btnEditar,
 						"Deseja Editar o cliente " + tabela.getValueAt(tabela.getSelectedRow(), 1));
 				if (a == 0) {
@@ -156,6 +164,7 @@ public class ListaView extends JPanel implements ActionListener, MouseListener {
 				JOptionPane.showMessageDialog(tabela, "Selecione uma tabela!");
 			}
 		}
+		
 	}
 
 	@Override

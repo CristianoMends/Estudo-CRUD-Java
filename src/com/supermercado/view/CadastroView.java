@@ -20,14 +20,12 @@ import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
 import com.supermercado.controller.CadastroController;
+import com.supermercado.dao.Conexao;
 
 public class CadastroView extends JPanel implements KeyListener,ActionListener{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	public JTextField txtNome,txtTel,txtDataNasc,txtEmail,txtCpf,txtCidade,txtUf,txtRua,txtNumero;
-	public String sexo;
+	public String sexo = "";
 	 JButton btnCadastrar;
 	public JRadioButton m,f;
 	public CadastroView() {
@@ -44,10 +42,7 @@ public class CadastroView extends JPanel implements KeyListener,ActionListener{
 		panelEnd.setLayout(new FlowLayout(FlowLayout.LEFT,30,10));
 		add(panelEnd);
 		
-   try {
-			
-		
-		
+   try {		
 		JLabel nome = new JLabel("Nome");
 		nome.setPreferredSize(new Dimension(500,25));
 		nome.setFont(new Font("",Font.BOLD,14));
@@ -163,7 +158,7 @@ public class CadastroView extends JPanel implements KeyListener,ActionListener{
 		cadastroPanel.add(btnCadastrar);
 		btnCadastrar.addActionListener(this);
 		
-	} 
+		} 
   catch (ParseException e) {
 	  JOptionPane.showMessageDialog(null, "Erro: "+e);
 	  e.printStackTrace();
@@ -172,24 +167,28 @@ public class CadastroView extends JPanel implements KeyListener,ActionListener{
 		}
 	@Override
 	public void actionPerformed(ActionEvent e) {	
-		try {
+		try {	
 				  if(f.isSelected()) {sexo=f.getText();
 		    }else if(m.isSelected()) {sexo=m.getText();
 		    }
-			if(e.getSource()==btnCadastrar && btnCadastrar.getText()!="Atualizar") {		    
+				  
+			if(e.getSource()==btnCadastrar && btnCadastrar.getText()!="Atualizar") {
+				if(testar()) {
 				CadastroController controller = new CadastroController();
 				controller.cadastrarPessoa(this);
 				JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-			}
+				}}
+			
 			if(e.getSource()==btnCadastrar && btnCadastrar.getText()=="Atualizar") {
+				if(testar()) {
 				CadastroController cadastroController = new CadastroController();
 				cadastroController.editarPessoa(this);
 				JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
-
+				}
 			}
+			
 			} catch (SQLException e1) {
 			JOptionPane.showMessageDialog(null, "Erro, Cadastro não concluído! \n"+e1);
-			System.err.println("Cadastro não concluído!");
 			e1.printStackTrace();
 			}
 	}
@@ -204,24 +203,74 @@ public class CadastroView extends JPanel implements KeyListener,ActionListener{
 		//Condicoes para telefone
 		if(e.getComponent()==txtTel && e.getKeyCode()!=8) {
 			if(e.getComponent()==txtTel) {
-				if( !key.matches("[0-9]*")) {JOptionPane.showMessageDialog(txtDataNasc, "Digite apenas numeros!!");}
+				if( !key.matches("[0-9]*")) {JOptionPane.showMessageDialog(txtTel, "Digite apenas numeros!!");}
+			}}
+		
+		//condições para cpf
+		if(e.getComponent()==txtCpf && e.getKeyCode()!=8) {
+			if(e.getComponent()==txtCpf) {
+				if( !key.matches("[0-9]*")) {JOptionPane.showMessageDialog(txtCpf, "Digite apenas numeros!!");}
 			}}
 		
 	}
+	public boolean testar() {
+		boolean ok = true;
+		if(getTxtCpf().length()<=13) {ok = false;JOptionPane.showMessageDialog(txtCpf, "Digite um cpf valido!");}
+		if(getTxtCidade() == "") {ok = false;JOptionPane.showMessageDialog(txtCidade, "Digite sua cidade!");}
+		if(getTxtDataNasc().length()<10) {ok = false;JOptionPane.showMessageDialog(txtDataNasc, "Digite uma data valida!");}
+		if(!getTxtEmail().contains(".com") || !getTxtEmail().contains("@")) {ok = false;JOptionPane.showMessageDialog(txtEmail, "Digite um email valido!");}
+		if(getTxtNome() == "") {ok = false;JOptionPane.showMessageDialog(txtNome, "Digite seu nome!");}
+		if(getTxtNumero() == "") {ok = false;JOptionPane.showMessageDialog(txtNumero, "Digite o numero da residencia!");}
+		if(getTxtRua().length()<3) {ok = false;JOptionPane.showMessageDialog(txtRua, "Digite a rua!");}
+		if(getTxtTel().length()<15) {ok = false;JOptionPane.showMessageDialog(txtTel, "Digite um telefone valido!");}
+		if(getTxtUf().length()<2) {ok = false;JOptionPane.showMessageDialog(txtUf, "Digite sua unidade federativa!");}
+		if(getTxtSexo() == "") {ok = false;JOptionPane.showMessageDialog(m, "Selecione um gênero!");}
+		return ok;
+	}
+	
 	@Override
 	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void keyReleased(KeyEvent e) {
+
 		// TODO Auto-generated method stub
 		
 	}
 	public String getSexo() {
 		return sexo;
 	}
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
+	public String getTxtNome() {
+		return txtNome.getText();
 	}
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+	public String getTxtTel() {
+		return txtTel.getText();
 	}
+	public String getTxtDataNasc() {
+		return txtDataNasc.getText();
+	}
+	public String getTxtEmail() {
+		return txtEmail.getText();
+	}
+	public String getTxtCpf() {
+		return txtCpf.getText();
+	}
+	public String getTxtCidade() {
+		return txtCidade.getText();
+	}
+	public String getTxtUf() {
+		return txtUf.getText();
+	}
+	public String getTxtRua() {
+		return txtRua.getText();
+	}
+	public String getTxtNumero() {
+		return txtNumero.getText();
+	}
+	public String getTxtSexo() {
+		return sexo;
+	}
+	
 }
